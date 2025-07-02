@@ -1,0 +1,64 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input class="search-input" placeholder="搜索食材或菜谱" value="{{searchValue}}" bindinput="onSearch" confirm-type="search" />
+    <view class="search-icon" bindtap="clearSearch" wx:if="{{searchValue}}">
+      <text>×</text>
+    </view>
+  </view>
+
+  <!-- 搜索结果 -->
+  <view class="search-results" wx:if="{{searchResults.length > 0}}">
+    <view class="search-result-item" wx:for="{{searchResults}}" wx:key="ID" data-id="{{item.ID}}" bindtap="{{item.name ? 'onSearchIngredientTap' : 'onRecipeTap'}}">
+      <view class="result-name">{{item.name || item.Name}}</view>
+      <view class="result-description">{{item.description || item.Description}}</view>
+    </view>
+  </view>
+
+  <!-- 内容区域（搜索时隐藏） -->
+  <scroll-view class="content-area" scroll-y wx:if="{{searchResults.length === 0}}">
+    <!-- 轮播图 -->
+    <swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="500" circular="true">
+      <swiper-item wx:for="{{banners}}" wx:key="id" bindtap="onBannerTap" data-id="{{item.id}}">
+        <image src="{{item.image}}" mode="aspectFill" class="banner-image"></image>
+        <view class="banner-title">{{item.title}}</view>
+      </swiper-item>
+    </swiper>
+
+    <!-- 已选食材列表 -->
+    <view class="selected-ingredients" wx:if="{{selectedIngredients.length > 0}}">
+      <view class="section-title">已选食材</view>
+      <view class="ingredients-list">
+        <view class="selected-ingredient-item" wx:for="{{selectedIngredients}}" wx:key="ID">
+          <text>{{item.name}}</text>
+          <view class="remove-btn" data-id="{{item.ID}}" bindtap="removeIngredient">×</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 食材选择区 -->
+    <view class="ingredients-section">
+      <view class="section-title">选择食材</view>
+      <view class="ingredients-grid">
+        <view class="ingredient-item" wx:for="{{ingredients}}" wx:key="ID" data-id="{{item.ID}}" bindtap="selectIngredient">
+          <text>{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 推荐菜谱列表 -->
+    <view class="recipes-section" wx:if="{{recommendedRecipes.length > 0}}">
+      <view class="section-title">推荐菜谱</view>
+      <view class="recipes-list">
+        <view class="recipe-card" wx:for="{{recommendedRecipes}}" wx:key="ID" data-id="{{item.ID}}" bindtap="onRecipeTap">
+          <image class="recipe-image" src="{{item.image_url || 'https://example.com/default-recipe.jpg'}}" mode="aspectFill"></image>
+          <view class="recipe-info">
+            <view class="recipe-name">{{item.name}}</view>
+            <view class="recipe-description">{{item.description}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>

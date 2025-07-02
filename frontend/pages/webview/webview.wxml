@@ -1,0 +1,15 @@
+<!--webview.wxml-->
+<view class="container">
+  <web-view wx:if="{{!error && url}}" src="{{url}}" bindload="onWebviewLoad" binderror="onWebviewError"></web-view>
+  
+  <view wx:if="{{loading && !error}}" class="loading">
+    <view class="loading-icon"></view>
+    <text>加载中...</text>
+  </view>
+  
+  <view wx:if="{{error}}" class="error">
+    <icon type="warn" size="60"></icon>
+    <text>页面加载失败</text>
+    <button bindtap="goBack" type="primary">返回</button>
+  </view>
+</view> 

@@ -1,0 +1,13 @@
+{
+  "server": {
+    "address": ":8080"
+  },
+  "database": {
+    "driver": "mysql",
+    "host": "8.130.20.40",
+    "port": 3306,
+    "user": "root",
+    "password": "Gtc@030605",
+    "dbname": "recipe_app"
+  }
+} 

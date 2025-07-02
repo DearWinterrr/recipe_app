@@ -1,0 +1,82 @@
+<!--recipeDetail.wxml-->
+<view class="container">
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+
+  <view class="recipe-detail" wx:if="{{!loading && recipe}}">
+    <!-- 菜谱头部 -->
+    <view class="recipe-header">
+      <image class="recipe-image" src="{{recipe.image_url || 'https://example.com/default-recipe.jpg'}}" mode="aspectFill"></image>
+      <view class="recipe-title">{{recipe.name}}</view>
+      <view class="recipe-description">{{recipe.description}}</view>
+    </view>
+
+    <!-- 营养成分 -->
+    <view class="section">
+      <view class="section-title">营养成分</view>
+      <view class="nutrition-info">
+        <view class="nutrition-item">
+          <text class="nutrition-label">热量</text>
+          <text class="nutrition-value">{{recipe.nutrition.calories}} 千卡</text>
+        </view>
+        <view class="nutrition-item">
+          <text class="nutrition-label">蛋白质</text>
+          <text class="nutrition-value">{{recipe.nutrition.protein}} 克</text>
+        </view>
+        <view class="nutrition-item">
+          <text class="nutrition-label">脂肪</text>
+          <text class="nutrition-value">{{recipe.nutrition.fat}} 克</text>
+        </view>
+        <view class="nutrition-item">
+          <text class="nutrition-label">碳水化合物</text>
+          <text class="nutrition-value">{{recipe.nutrition.carbohydrates}} 克</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 食材列表 -->
+    <view class="section">
+      <view class="section-title">食材清单</view>
+      <view class="ingredients-list">
+        <view class="ingredient-item" wx:for="{{recipe.ingredients}}" wx:key="ID">
+          <text class="ingredient-name">{{item.ingredient.name}}</text>
+          <text class="ingredient-quantity">{{item.quantity}} 克</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 制作步骤 -->
+    <view class="section">
+      <view class="section-title">制作步骤</view>
+      <view class="steps-list">
+        <view class="step-item" wx:for="{{recipe.steps}}" wx:key="ID">
+          <view class="step-number">{{item.step_number}}</view>
+          <view class="step-content">
+            <text class="step-description">{{item.description}}</text>
+            <image wx:if="{{item.image_url}}" class="step-image" src="{{item.image_url}}" mode="aspectFill"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 推荐链接 -->
+    <view class="section">
+      <view class="section-title">更多帮助</view>
+      <view class="links">
+        <view class="link-item" bindtap="onVideoTap" wx:if="{{recipe.video_url}}">
+          <text class="link-icon">📹</text>
+          <text class="link-text">观看制作视频</text>
+        </view>
+        <view class="link-item" bindtap="onWebpageTap" wx:if="{{recipe.webpage_url}}">
+          <text class="link-icon">🔗</text>
+          <text class="link-text">查看详细网页</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="error" wx:if="{{!loading && !recipe}}">
+    <text>无法加载菜谱信息</text>
+  </view>
+</view> 
