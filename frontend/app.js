@@ -14,6 +14,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    apiBaseUrl: 'http://8.130.20.40:8080/api'
   }
 })

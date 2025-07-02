@@ -18,7 +18,7 @@ Page({
     this.setData({ loading: true });
     
     wx.request({
-      url: `http://localhost:8080/api/recipes/${id}`,
+      url: `http://8.130.20.40:8080/api/recipes/${id}`,
       success: (res) => {
         this.setData({
           recipe: res.data,

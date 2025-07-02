@@ -12,9 +12,9 @@ Page({
     canIUseGetUserProfile: wx.canIUse('getUserProfile'),
     canIUseNicknameComp: wx.canIUse('input.type.nickname'),
     banners: [
-      { id: 1, image: 'https://example.com/banner1.jpg', title: '夏季清爽菜' },
-      { id: 2, image: 'https://example.com/banner2.jpg', title: '减脂餐' },
-      { id: 3, image: 'https://example.com/banner3.jpg', title: '热门菜谱' }
+      { id: 1, image: 'https://img.zcool.cn/community/01b8f45e6fd483a801216518a5c03c.jpg', title: '夏季清爽菜' },
+      { id: 2, image: 'https://img.zcool.cn/community/01a1695e6fd483a801216518e7c5f7.jpg', title: '减脂餐' },
+      { id: 3, image: 'https://img.zcool.cn/community/0138d75e6fd483a801216518a9c66a.jpg', title: '热门菜谱' }
     ],
     ingredients: [],
     selectedIngredients: [],
@@ -63,7 +63,7 @@ Page({
   loadIngredients() {
     wx.showLoading({ title: '加载中' });
     wx.request({
-      url: 'http://localhost:8080/api/ingredients',
+      url: 'http://8.130.20.40:8080/api/ingredients',
       success: (res) => {
         this.setData({
           ingredients: res.data
@@ -115,7 +115,7 @@ Page({
 
     wx.showLoading({ title: '推荐中' });
     wx.request({
-      url: 'http://localhost:8080/api/recommend',
+      url: 'http://8.130.20.40:8080/api/recommend',
       method: 'POST',
       data: {
         ingredients: this.data.selectedIngredients.map(item => item.ID)
@@ -149,7 +149,7 @@ Page({
 
     wx.showLoading({ title: '搜索中' });
     wx.request({
-      url: `http://localhost:8080/api/search?keyword=${encodeURIComponent(value)}`,
+      url: `http://8.130.20.40:8080/api/search?keyword=${encodeURIComponent(value)}`,
       success: (res) => {
         // 合并搜索结果，优先展示菜谱
         this.setData({
